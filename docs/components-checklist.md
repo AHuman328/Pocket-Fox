@@ -50,11 +50,14 @@
     </ul>
 
 <h1>IR</h1>
-  <p><a href="">IR LED + TSOP IR Receiver</a></p>
+  <p><a href="">10pcs Bundle: 5x TSOP38238 (IR Receiver) + 5x TSAL6200 (940nm High-Power IR LED)</a></p>
   <ul>
-    <li>Qty: 1 each</li>
-    <li>Cost: ~$2-3</li>
+    <li>Qty: 1 each used (spares from bundle)</li>
+    <li>Cost: bundle pricing, check listing</li>
+    <li>RX: TSOP38238 — 38kHz demodulating IR receiver, 3-pin, direct to GPIO</li>
+    <li>TX: TSAL6200 — 940nm high-power IR LED, 100mA continuous (1.5A surge), needs small transistor driver (e.g. 2N2222 + resistors, ~$0.15) since ESP32 GPIO can't source 100mA directly</li>
     <li>Purpose: Universal remote transmit/capture and IR replay.</li>
+    <li>Status: Finalized.</li>
   </ul>
 
 <h1>Display</h1>
