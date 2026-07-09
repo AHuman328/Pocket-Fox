@@ -1,102 +1,183 @@
-<h1>Pocket Fox</h1>
-A portable cybersecurity research and penetration testing platform designed for security professionals, researchers, and enthusiasts.
+# Pocket-Fox
 
-<h2>Overview</h2>
-Pocket-Fox is an all-in-one handheld cybersecurity research device designed to combine the capabilities of multiple security devices into a single expandable unit.
+*A portable cybersecurity research platform for security professionals, students, researchers, and hardware enthusiasts.*
 
-Pocket-Fox was lightly inspired by the following devices:
-<ul>
-  <li>Flipper Zero</li>
-  <li>HackRF One</li>
-  <li>WiFi Pineapple</li>
-  <li>ESP32 Marauder</li>
-  <li>Cyberdeck</li>
-  <li>Pwnagotchi</li>
-</ul>
-It's aimed to bring some of the largest pentesting tools into a single unit, down to about 6x8x1.5".
+## Overview
 
-<h2>The Goal</h2>
-Pocket-Fox is being designed to provide:
-<ul>
-  <li>A portable cybersecurity research platform</li>
-  <li>Modular hardware expansion</li>
-  <li>Embedded security experimentation</li>
-  <li>Wireless research capabilities</li>
-  <li>Customizable software</li>
-</ul>
+Pocket-Fox is an all-in-one handheld cybersecurity research platform that combines the capabilities of multiple portable security tools into a single modular device.
 
-<h2>Intended Users</h2>
+Rather than replacing any one existing platform, Pocket-Fox draws inspiration from several established projects and combines their ideas into a unified hardware and software ecosystem focused on research, education, and authorized security testing.
+
+Inspirations include:
+
+* Flipper Zero
+* HackRF One
+* WiFi Pineapple
+* ESP32 Marauder
+* Cyberdecks
+* Pwnagotchi
+
+The long-term goal is a compact handheld platform — approximately **6 × 8 × 1.5 inches** — capable of supporting a wide range of security research workflows, while remaining fully documented and reproducible.
+
+---
+
+## Goals
+
+Pocket-Fox is being developed to provide:
+
+* A portable cybersecurity research platform
+* Modular hardware expansion
+* Embedded systems experimentation
+* Wireless research capabilities
+* A customizable Linux-based software environment
+* Comprehensive documentation for builders and developers
+
+---
+
+## Intended Users
+
 Pocket-Fox is intended for:
-<ul>
-  <li>Cybersecurity students</li>
-  <li>Security researchers</li>
-  <li>Pentesters</li>
-  <li>Hardware enthusiasts</li>
-  <li>Makers</li>
-</ul>
 
-<h2>Hardware Concept</h2>
+* Cybersecurity students
+* Security researchers
+* Authorized penetration testers
+* Makers
+* Hardware enthusiasts
+* Embedded systems developers
 
-The current hardware concept is built around the <strong>Orange Pi Zero 3 (4GB)</strong> as the
-main controller, with <strong>dual ESP32-S3-Super-Mini</strong> boards handling dedicated radio
-subsystems.
+---
 
-<h3>Main Controllers</h3>
-<ul>
-  <li><strong>Orange Pi Zero 3 (4GB)</strong> — primary compute, UI, storage, and orchestration. Runs Linux-based tooling (e.g. bettercap, pwnagotchi-style agents) and drives the main screen.</li>
-  <li><strong>2x ESP32-S3-Super-Mini</strong> — dedicated radio controllers, offloading time-sensitive or low-level radio work from the Orange Pi:
-    <ul>
-      <li>One handles sub-GHz, NFC, RFID, and IR peripherals.</li>
-      <li>One is dedicated to onboard 802.11 WiFi work — monitor mode, packet sniffing, and deauth (native ESP32-S3 capability), reporting results back to the Orange Pi over serial.</li>
-    </ul>
-  </li>
-</ul>
+# Hardware Concept
 
-<h3>RF Subsystems</h3>
-<ul>
-  <li><strong>CC1101</strong> — sub-GHz transceiver (315/433/868/915MHz) for key fobs, garage doors, and other sub-GHz signals.</li>
-  <li><strong>NRF24L01+PA+LNA</strong> — fixed 2.4GHz proprietary radio (not WiFi/802.11). Used for HID/mouse-jacking-style attacks against wireless mice and keyboards that use NRF24-based USB dongles.</li>
-  <li><strong>ESP32-S3 onboard WiFi</strong> — 802.11 b/g/n, 2.4GHz only. Handles monitor mode, packet capture, and deauth/injection duties (Marauder-style), since neither the CC1101 nor the NRF24L01 can perform these functions.</li>
-</ul>
+Pocket-Fox is built around a hybrid architecture: a Linux-based embedded computer paired with dedicated microcontrollers for specialized hardware tasks.
 
-<h3>NFC / RFID</h3>
-<ul>
-  <li><strong>PN532</strong> — 13.56MHz NFC reader/writer with antenna.</li>
-  <li><strong>RDM6300</strong> — 125kHz RFID reader module.</li>
-</ul>
+## Main Processing System
 
-<h3>IR</h3>
-IR LED (TX) + TSOP-series IR receiver (RX) for universal remote / IR replay functionality.
+### Orange Pi Zero 3 (4GB)
 
-<h3>Display</h3>
-<strong>Waveshare 3.5" resistive TFT</strong> — exact interface (SPI / DPI-parallel / HDMI) TBD; interface choice affects Orange Pi driver complexity and should be confirmed against the specific Waveshare model before finalizing.
+The Orange Pi serves as the primary computing platform, responsible for:
 
-<h3>Power</h3>
-<ul>
-  <li><strong>7500mAh single-cell LiPo battery</strong></li>
-  <li><strong>TP4056</strong> charging module (single-cell LiPo charge management)</li>
-  <li><strong>Buck-boost converter</strong> (e.g. TPS63020-based) to provide a stable 5V rail to the Orange Pi regardless of battery charge state (3.0-4.2V range)</li>
-  <li><strong>3.3V buck/LDO</strong> off the 5V rail to power the ESP32-S3 boards and radio modules (CC1101, PN532, RDM6300, NRF24L01)</li>
-</ul>
+* Running the custom Linux operating system
+* Managing the touchscreen user interface
+* Storage and application execution
+* Coordinating communication between onboard peripherals
+* Executing user-installed applications and research tools
 
-<h3>Enclosure</h3>
-Single 3D-printed case housing all subsystems, target dimensions 6" x 8" x 1.5-2".
+---
 
-<h3>Known Open Items</h3>
-<ul>
-  <li>Confirm exact Waveshare display model/interface</li>
-  <li>Confirm final buck-boost converter part</li>
-  <li>WiFi monitor-mode/injection currently scoped to ESP32-S3 onboard radio (2.4GHz only); external monitor-mode USB adapter (e.g. MT7612U-based) is a possible future addition for 5GHz / Orange-Pi-side capture, but not required for v1</li>
-</ul>
+## Auxiliary Controllers
 
-<h2>Design Philosophy</h2>
-Pocket-Fox is built around three principles:
+### Dual ESP32-S3 Super Mini
 
-<h3>Portability</h3>
-<p>A complete security research environment which can be carried anywhere.</p>
+Two dedicated ESP32-S3 microcontrollers offload peripheral management from the Orange Pi, keeping the Linux system responsive while time-sensitive embedded tasks run independently.
 
-<h3>Expandability</h3>
-<p>Designed with modular hardware and software so new capabilities can be added over time.</p>
+**ESP32 #1**
+Handles radio-related peripherals and wireless hardware interfaces.
 
-<h3>Educational</h3>
-<p>Focused on learning how hardware, software, and cybersecurity systems work together.</p>
+**ESP32 #2**
+Handles sensors, physical controls, GPS, LEDs, power monitoring, and future expansion peripherals.
+
+---
+
+## Display & Controls
+
+Pocket-Fox is designed around:
+
+* **4.3-inch IPS Capacitive Touch Display**
+  * 800 × 480 resolution
+  * HDMI interface
+* Directional pad (D-pad)
+* Navigation buttons
+* Additional programmable function buttons
+
+Physical controls keep the device fully usable even when touchscreen interaction isn't convenient.
+
+---
+
+## Wireless Hardware
+
+Current hardware planning includes:
+
+* Wi-Fi
+* Bluetooth
+* GPS
+* Sub-GHz radio support
+* Optional future LoRa expansion
+
+Wireless hardware is distributed across dedicated subsystems to improve modularity and simplify future upgrades.
+
+---
+
+## Additional Hardware
+
+Planned supporting hardware includes:
+
+* NFC
+* RFID
+* Infrared transceiver
+* Internal battery management system
+* USB connectivity
+* Expansion interfaces for future modules
+
+Additional components may change as development progresses.
+
+---
+
+## Power System
+
+Current design targets include:
+
+* 7500 mAh single-cell LiPo battery
+* USB-C charging circuitry
+* Regulated power rails for both the Linux system and embedded subsystems
+* Battery monitoring and protection
+
+The final power architecture will be refined during hardware prototyping.
+
+---
+
+## Enclosure
+
+Pocket-Fox is planned around a custom 3D-printed enclosure with a target size of:
+
+**6 × 8 × 1.5 inches**
+
+The enclosure is being designed to maximize portability while still allowing internal access for servicing and future revisions.
+
+---
+
+## Current Development Status
+
+Pocket-Fox is currently in the planning and architecture phase.
+
+* ✅ Initial hardware concept
+* ✅ Repository redesign
+* ✅ System architecture planning
+* 🚧 Component evaluation
+* ⏳ Prototype development
+* ⏳ PCB design
+* ⏳ Custom Linux environment
+
+---
+
+# Design Philosophy
+
+Pocket-Fox is built around three core principles.
+
+## Portability
+
+A complete cybersecurity research environment designed to travel anywhere.
+
+## Expandability
+
+Every major subsystem is designed with future hardware and software expansion in mind.
+
+## Documentation
+
+Every stage of development — from initial planning through final assembly — will be documented, making the project reproducible for builders, contributors, and future developers.
+
+---
+
+## Disclaimer
+
+Pocket-Fox is intended for cybersecurity education, hardware experimentation, research, and **authorized** security testing only. Users are responsible for ensuring they have permission before interacting with any network, system, or device.
