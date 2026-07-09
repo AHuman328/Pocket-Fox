@@ -39,4 +39,10 @@ Pocket-Fox is intended for:
 
 <h2>Hardware Concepts</h2>
 
-The current hardware concept includes having the Orange Pi Zero 3 4Gb, dual ESP-32-S3-Super-Mini as the main controllers then for sub systems it will have the CC1101 for sub-ghz and the NRF24L01+PA+LNA for 2.4GHz which may be expanded up to 6GHz. It is going to have both NFC and RFID with the PN532 for the NFC chip and antenna then the RDM6300 125kHz module for RFID. The screen is going to be a resistive 3.5 inch TFT screen from WaveShare. Power wise it is going to have a 7500mah LiPo battery with a TP4056 charging module with a buck and boost converter which has not been decided yet. 
+The current hardware concept includes having the Orange Pi Zero 3 4Gb, dual ESP-32-S3-Super-Mini as the main controllers then for sub systems it will have the CC1101 for sub-ghz and the NRF24L01+PA+LNA for 2.4GHz which may be expanded up to 6GHz. It is going to have both NFC and RFID with the PN532 for the NFC chip and antenna then the RDM6300 125kHz module for RFID. The screen is going to be a resistive 3.5 inch TFT screen from WaveShare. Power wise it is going to have a 7500mah LiPo battery with a TP4056 charging module with a buck and boost converter which has not been decided yet. All inside of one 3D Printed Case.
+
+<h2>Design Philosphy</h2>
+Pocket-Fox is built around three principles:
+<h3>Portablity</h3><p>A complete security research enviorment which can be carried anywhere</p>
+<h3>Expanability</h3><p>Designed with modular hardware and software so new capabilities can be added over time.</p>
+<h3>Educational</h3><p>Focused on learning how hardware, software, and cybersecurity systems work together</p>
